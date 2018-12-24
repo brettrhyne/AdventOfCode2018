@@ -18,9 +18,43 @@ def part1():
     return twoCount * threeCount
 
 
-def part2():
+def part2NLogN():
+    linesI = lines.copy()
+    linesJ = lines.copy()
+    for lineI in linesI:
+        for lineJ in linesJ[1:]:
+            if hasOneDifference(lineI, lineJ):
+                return removeDifferentChar(lineI, lineJ)
+        del linesJ[0]
 
-    return 0
+
+def hasOneDifference(str1, str2):
+    list1 = list(str1)
+    list2 = list(str2)
+    i = 0
+    differences = 0
+    while i < len(list1):
+        if list1[i] != list2[i]:
+            differences += 1
+        i += 1
+    if differences == 1:
+        return True
+    else:
+        return False
 
 
-print(str(part1()))
+
+def removeDifferentChar(str1, str2):
+    i = 0
+    list1 = list(str1)
+    list2 = list(str2)
+    while True:
+        if list1[i] != list2[i]:
+            del list1[i]
+            return ''.join(list1)
+        else:
+            i += 1
+
+
+print('part 1: ' + str(part1()))
+print('part 2: ' + part2NLogN())
